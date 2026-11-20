@@ -9,7 +9,7 @@ scotland, ireland, newzealand, african) using Common Voice data.
 
 ## Run the demo locally
 
-1. Copy `mlp_mel_seed0..4.pt` from the Kaggle output into `backend/models/` and set `tau` in `backend/models/config.json`.
+1. The Mel-MLP checkpoints are already in `backend/models/` (`tau` is set in `config.json`).
 2. ```
    cd backend
    pip install -r requirements.txt

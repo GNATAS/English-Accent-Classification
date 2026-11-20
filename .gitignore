@@ -2,5 +2,4 @@ __pycache__/
 *.pyc
 .venv/
 .claude/
-backend/models/*.pt
 *.npy

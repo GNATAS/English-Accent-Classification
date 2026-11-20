@@ -6,4 +6,4 @@ notebook output, folder `mlp/`):
     mlp_mel_seed0.pt ... mlp_mel_seed4.pt
 
 Then set `tau` in `config.json` to the value the notebook prints for `mel` (`tau per feature: {...}`).
-`*.pt` files are git-ignored by default; remove that rule in `.gitignore` if you want to commit them (about 1 MB each).
+The five `mlp_mel_seed*.pt` files (about 8 MB each) are committed with `tau = 0.6` (from the notebook log).
