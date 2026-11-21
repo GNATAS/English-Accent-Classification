@@ -1,293 +1,81 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Accent Finder</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --paper: #ffffff;
-    --ink: #101c26;
-    --muted: #55677a;
-    --line: #dde4ea;
-    --night: #0b1230;
-    --cobalt: #2a46ff;
-    --cobalt-ink: #ffffff;
-    --heat: #f2894b;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--paper); color: var(--ink);
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
-    font-size: 17px; line-height: 1.5;
-  }
-  main { max-width: 1080px; margin: 0 auto; padding: 48px 16px 80px; }
-  h1 {
-    font-size: clamp(2.4rem, 6.4vw, 4.6rem); line-height: .98; font-weight: 700;
-    font-stretch: 75%; letter-spacing: -.025em; margin: 0 0 20px; max-width: 14ch;
-  }
-  .lede { max-width: 52ch; color: var(--muted); margin: 0 0 36px; }
-
-  .stage { background: var(--night); border-radius: 6px; position: relative; overflow: hidden; }
-  canvas { display: block; width: 100%; height: clamp(180px, 34vw, 320px); }
-  .stage .empty {
-    position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
-    color: #9fb0d8; padding: 24px; font-size: 1rem;
-  }
-  .stage .empty[hidden] { display: none; }
-  .axis {
-    position: absolute; left: 10px; top: 8px; bottom: 8px; display: flex;
-    flex-direction: column; justify-content: space-between; color: #8fa0cc;
-    font-size: .75rem; pointer-events: none;
-  }
-
-  .prompt { margin: 28px 0 20px; max-width: 60ch; }
-  .prompt small { display: block; color: var(--muted); font-size: .9rem; margin-bottom: 4px; }
-  .prompt p { margin: 0; font-size: 1.35rem; line-height: 1.35; font-weight: 500; }
-
-  .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  button, .filebtn {
-    font: inherit; font-weight: 600; border: 2px solid var(--ink); background: transparent; color: var(--ink);
-    padding: 12px 20px; border-radius: 999px; cursor: pointer; display: inline-flex; gap: 10px; align-items: center;
-  }
-  button.primary { background: var(--cobalt); border-color: var(--cobalt); color: var(--cobalt-ink); }
-  button:hover, .filebtn:hover { filter: brightness(1.08); }
-  button:focus-visible, .filebtn:focus-within { outline: 3px solid var(--heat); outline-offset: 3px; }
-  button:disabled { opacity: .5; cursor: default; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; background: currentColor; }
-  .recording .dot { background: #ff4d4d; animation: pulse 1s ease-in-out infinite; }
-  @keyframes pulse { 50% { transform: scale(.55); opacity: .6; } }
-  .filebtn input { position: absolute; opacity: 0; width: 0; height: 0; }
-  .status { color: var(--muted); font-size: .95rem; margin-left: 4px; }
-
-  .result { margin-top: 48px; display: none; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; }
-  .result.on { display: grid; }
-  .top-label { color: var(--muted); margin: 0 0 4px; }
-  .top-name { font-size: clamp(2.4rem, 7vw, 4.4rem); line-height: 1; font-weight: 700; font-stretch: 80%; letter-spacing: -.02em; margin: 0; }
-  .top-pct { font-size: 1.2rem; margin: 8px 0 0; color: var(--muted); }
-  .rows { list-style: none; margin: 0; padding: 0; }
-  .rows li { display: grid; grid-template-columns: 9.5em 1fr 3.4em; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); }
-  .rows .bar { height: 10px; background: var(--line); border-radius: 5px; overflow: hidden; }
-  .rows .bar i { display: block; height: 100%; width: 0; background: var(--muted); border-radius: 5px; transition: width .7s cubic-bezier(.2,.8,.2,1); }
-  .rows li.first .bar i { background: var(--cobalt); }
-  .rows li.first { font-weight: 700; }
-  .rows .pct { text-align: right; font-variant-numeric: tabular-nums; }
-  .note { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; max-width: 70ch; }
-  .error { color: #d4342c; }
-
-  @media (max-width: 760px) { .result { grid-template-columns: 1fr; gap: 24px; } .rows li { grid-template-columns: 7.5em 1fr 3.2em; } }
-  @media (prefers-reduced-motion: reduce) { .recording .dot { animation: none; } .rows .bar i { transition: none; } }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#EAF5FF">
+  <title>Accent Quest — ฝึกพูดทีละด่าน</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
 </head>
 <body>
-<main>
-  <h1>Read a sentence. Hear where you sound from.</h1>
-  <p class="lede">Record yourself or upload a clip. The page turns your voice into the same 128-band spectrogram the classifier reads, then ranks nine English accents.</p>
-
-  <div class="stage">
-    <canvas id="spec" width="376" height="128" aria-label="Mel spectrogram of your recording" role="img"></canvas>
-    <div class="axis" aria-hidden="true"><span>8 kHz</span><span>0 Hz</span></div>
-    <div class="empty" id="empty">Your spectrogram appears here after you record or upload a clip.</div>
+  <a class="skip" href="#mission">ข้ามไปภารกิจ</a>
+  <div class="shell">
+    <header class="header">
+      <a class="brand" href="/" aria-label="Accent Quest หน้าแรก"><span class="brand-mark" aria-hidden="true">a<span>q</span></span>Accent Quest</a>
+      <button class="quiet" id="helpButton" aria-expanded="false" aria-controls="help">วิธีเล่น <span aria-hidden="true">?</span></button>
+    </header>
+    <section class="help" id="help" hidden>
+      <h2>เลือกเป้าหมาย แล้วเริ่มพูดได้เลย</h2>
+      <p>แต่ละรอบมี 5 ด่าน อ่านประโยค อัดเสียงไม่เกิน 6 วินาที แล้วฟังตัวเอง ลองใหม่ได้เท่าที่ต้องการ หรืออัปโหลดคลิปแทนก็ได้</p>
+      <p>ผ่านด่านและรับ 20 XP เมื่อโมเดลทายอันดับ 1 ตรงกับสำเนียงเป้าหมายโดยไม่เสมอกับกลุ่มอื่น ถ้ายังไม่ตรง ให้ฟังเสียงตัวเองแล้วลองใหม่ การอัดซ้ำไม่เพิ่ม XP ในด่านที่ผ่านแล้ว โมเดลไม่ตรวจคำที่อ่านและไม่ใช่ผู้ประเมินการออกเสียง</p>
+    </section>
+    <div class="intro"><div><p class="intro-kicker">พูดให้สนุก ฝึกให้เป็นตัวเอง</p><h1>สำเนียงที่อยากลอง<br>เริ่มได้ทีละด่าน</h1></div><p class="intro-copy">เลือกสำเนียงเป้าหมาย แล้วพาเสียงของคุณ<br class="desktop-break">ออกเดินทางผ่านบทสนทนาสั้น ๆ</p></div>
+    <main class="layout">
+      <aside class="destinations" aria-labelledby="destinationTitle">
+        <h2 id="destinationTitle">วันนี้อยากฝึกสำเนียงไหน?</h2>
+        <div id="accents" class="accent-list" role="group" aria-label="สำเนียงเป้าหมาย"></div>
+        <p class="dataset-note">ชื่อเหล่านี้คือกลุ่มในชุดข้อมูล แต่ละพื้นที่มีหลายสำเนียง โดยเฉพาะ “Africa” ไม่ได้หมายถึงสำเนียงเดียว</p>
+      </aside>
+      <div class="adventure">
+        <section class="route" aria-labelledby="routeTitle">
+          <div class="route-heading"><h2 id="routeTitle">เส้นทางฝึกของคุณ</h2><span id="xp" class="xp">0 XP</span></div>
+          <ol class="route-stops" id="route"></ol>
+          <div class="route-caption"><span id="routeCaption">ทายตรงเป้าหมาย จึงจะผ่านด่าน</span><span>5 ด่านสั้น ๆ</span></div>
+        </section>
+        <section class="mission" id="mission" aria-labelledby="lessonTitle" tabindex="-1">
+          <div id="exercise">
+            <div class="mission-meta"><span id="lessonNumber">ด่าน 1 / 5</span><span id="targetName" lang="en">United States</span></div>
+            <h2 id="lessonTitle">แวะทักทาย</h2>
+            <p id="scene" class="scene">เริ่มต้นบทสนทนา</p>
+            <blockquote lang="en" id="sentence">Hello! It’s lovely to see you again.</blockquote>
+            <div class="practice-tip"><span class="tip-symbol" aria-hidden="true">✦</span><p><strong id="focus">พูดเป็นวลี</strong><span id="tip"></span></p></div>
+            <div class="record-area">
+              <button id="rec" class="record"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3m-4 0h8"/></svg><span id="recLabel">เริ่มอัดเสียง</span></button>
+              <span id="recordHint" class="record-hint">อ่านให้สบาย ๆ ภายใน 6 วินาที</span>
+              <label class="upload" id="uploadLabel">หรืออัปโหลดเสียง<input id="file" type="file" accept="audio/*" aria-label="อัปโหลดเสียงสำหรับด่านนี้"></label>
+            </div>
+            <p id="status" class="status" role="status" aria-live="polite"></p>
+            <section class="feedback" id="feedback" aria-labelledby="feedbackTitle" hidden>
+              <div class="feedback-heading"><h3 id="feedbackTitle" tabindex="-1">ผลทำนายจากเสียงล่าสุด</h3><span id="reward"></span></div>
+              <div class="prediction-main">
+                <p class="prediction-label">กลุ่มที่โมเดลทายได้อันดับ 1</p>
+                <p id="predictedName" class="predicted-name" lang="en"></p>
+                <p class="prediction-probability">ความน่าจะเป็นจากโมเดล <strong id="predictedProbability"></strong></p>
+              </div>
+              <p id="matchText" class="target-comparison"></p>
+              <p class="model-caveat" id="predictionCaveat">นี่คือผลจำแนกของโมเดล ไม่ใช่คะแนนการออกเสียงหรือเปอร์เซ็นต์ความเหมือนเจ้าของภาษา โมเดลยังไม่ตรวจว่าอ่านถูกคำหรือไม่</p>
+              <table class="probabilities" aria-describedby="predictionCaveat">
+                <caption>ผลทั้ง 9 กลุ่ม เรียงจากความน่าจะเป็นมากไปน้อย</caption>
+                <thead><tr><th scope="col">กลุ่มสำเนียง</th><th scope="col">ความน่าจะเป็น</th></tr></thead>
+                <tbody id="probabilities"></tbody>
+              </table>
+            </section>
+            <div class="playback" id="playback" hidden><label for="audio">ฟังเสียงของคุณ</label><audio id="audio" controls preload="metadata"></audio></div>
+            <div class="next-row"><p id="nextHint">ให้โมเดลทายอันดับ 1 ตรงเป้าหมายเพื่อไปต่อ</p><button class="next" id="next" disabled>ด่านถัดไป <span aria-hidden="true">↗</span></button></div>
+          </div>
+          <div class="summary" id="summary" hidden>
+            <div class="finish-badge" aria-hidden="true">✦</div><p class="summary-target" id="summaryTarget"></p><h2 id="summaryTitle" tabindex="-1">ครบเส้นทางแล้ว!</h2><p>5 บทสนทนาเล็ก ๆ คือเวลาที่คุณได้ลงมือฝึกจริง<br>เก็บจังหวะนี้ไว้ แล้วกลับมาลองอีกครั้ง</p><p class="earned">รับแล้ว <strong>100 XP</strong> ในรอบนี้</p><p class="model-caveat">XP นับด่านที่โมเดลทายตรงเป้าหมาย ไม่ใช่คะแนนความถูกต้องของการออกเสียง</p><button class="next" id="restart">เริ่มรอบใหม่ <span aria-hidden="true">↻</span></button>
+          </div>
+        </section>
+        <p class="privacy">เสียงส่งไปประมวลผลที่เซิร์ฟเวอร์ของ demo และไม่ถูกจัดเก็บ ความคืบหน้าบันทึกเฉพาะในเบราว์เซอร์นี้ <span id="storageNote"></span></p>
+      </div>
+    </main>
+    <footer><span>Accent Quest</span><span>พื้นที่ทดลองเสียง ไม่ใช่การตัดสินตัวคุณ</span></footer>
   </div>
-
-  <div class="prompt">
-    <small>Read this aloud, at your normal pace</small>
-    <p>Please call Stella and ask her to bring these things with her from the store.</p>
-  </div>
-
-  <div class="controls">
-    <button id="rec" class="primary"><span class="dot"></span><span id="recLabel">Record</span></button>
-    <label class="filebtn">Upload audio<input id="file" type="file" accept="audio/*"></label>
-    <span class="status" id="status" role="status" aria-live="polite"></span>
-  </div>
-
-  <section class="result" id="result" aria-live="polite">
-    <div>
-      <p class="top-label">Closest match</p>
-      <h2 class="top-name" id="topName"></h2>
-      <p class="top-pct" id="topPct"></p>
-    </div>
-    <ol class="rows" id="rows"></ol>
-  </section>
-
-  <p class="note" id="note"></p>
-</main>
-
-<script>
-// Backend endpoint (POST audio/wav -> {"probs": {"us":0.4, ...}}), served by backend/app.py.
-const PREDICT_URL = "/api/predict";
-
-const CLASSES = [
-  ["us","United States"],["england","England"],["indian","India"],["australia","Australia"],
-  ["canada","Canada"],["scotland","Scotland"],["ireland","Ireland"],["newzealand","New Zealand"],["african","Africa"]
-];
-const SR = 16000, NFFT = 1024, HOP = 256, FRAMES = 376, MELS = 128;
-const $ = id => document.getElementById(id);
-const canvas = $("spec"), ctx = canvas.getContext("2d");
-const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-$("note").textContent = "The spectrogram is drawn in your browser. Your clip is sent to the local model server for classification and is not stored.";
-
-/* ---------- mel spectrogram ---------- */
-const hz2mel = f => 2595 * Math.log10(1 + f / 700), mel2hz = m => 700 * (10 ** (m / 2595) - 1);
-const filters = (() => {
-  const bins = NFFT / 2 + 1, pts = [], fb = [];
-  for (let i = 0; i < MELS + 2; i++) pts.push(mel2hz(hz2mel(0) + (hz2mel(SR / 2) - hz2mel(0)) * i / (MELS + 1)));
-  const idx = pts.map(f => f * NFFT / SR);
-  for (let m = 0; m < MELS; m++) {
-    const w = new Float32Array(bins);
-    for (let k = 0; k < bins; k++) {
-      if (k > idx[m] && k <= idx[m + 1]) w[k] = (k - idx[m]) / (idx[m + 1] - idx[m]);
-      else if (k > idx[m + 1] && k < idx[m + 2]) w[k] = (idx[m + 2] - k) / (idx[m + 2] - idx[m + 1]);
-    }
-    fb.push(w);
-  }
-  return fb;
-})();
-const hann = Float32Array.from({ length: NFFT }, (_, i) => 0.5 - 0.5 * Math.cos(2 * Math.PI * i / NFFT));
-
-function fft(re, im) {
-  const n = re.length;
-  for (let i = 1, j = 0; i < n; i++) {
-    let bit = n >> 1;
-    for (; j & bit; bit >>= 1) j ^= bit;
-    j ^= bit;
-    if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; }
-  }
-  for (let len = 2; len <= n; len <<= 1) {
-    const ang = -2 * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
-    for (let i = 0; i < n; i += len) {
-      let cr = 1, ci = 0;
-      for (let k = 0; k < len / 2; k++) {
-        const a = i + k, b = a + len / 2;
-        const tr = re[b] * cr - im[b] * ci, ti = re[b] * ci + im[b] * cr;
-        re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti;
-        const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr;
-      }
-    }
-  }
-}
-
-function melSpec(samples) {
-  const need = HOP * (FRAMES - 1) + NFFT;
-  const x = new Float32Array(need);
-  x.set(samples.subarray(0, Math.min(samples.length, need)));
-  const out = new Float32Array(FRAMES * MELS);
-  const re = new Float32Array(NFFT), im = new Float32Array(NFFT), pw = new Float32Array(NFFT / 2 + 1);
-  let max = -1e9;
-  for (let t = 0; t < FRAMES; t++) {
-    for (let i = 0; i < NFFT; i++) { re[i] = x[t * HOP + i] * hann[i]; im[i] = 0; }
-    fft(re, im);
-    for (let k = 0; k < pw.length; k++) pw[k] = re[k] * re[k] + im[k] * im[k];
-    for (let m = 0; m < MELS; m++) {
-      let s = 0; const w = filters[m];
-      for (let k = 0; k < pw.length; k++) if (w[k]) s += w[k] * pw[k];
-      const db = 10 * Math.log10(s + 1e-10);
-      out[t * MELS + m] = db; if (db > max) max = db;
-    }
-  }
-  for (let i = 0; i < out.length; i++) out[i] = Math.min(1, Math.max(0, (out[i] - (max - 80)) / 80));
-  return out; // [frame][mel], 0..1
-}
-
-/* ---------- drawing ---------- */
-const STOPS = [[11,18,48],[59,26,110],[177,58,119],[242,137,75],[251,233,160]];
-function color(v) {
-  const p = v * (STOPS.length - 1), i = Math.min(STOPS.length - 2, Math.floor(p)), f = p - i;
-  return STOPS[i].map((c, j) => c + (STOPS[i + 1][j] - c) * f);
-}
-let raf = 0;
-function draw(spec) {
-  cancelAnimationFrame(raf);
-  $("empty").hidden = true;
-  const img = ctx.createImageData(FRAMES, MELS);
-  for (let t = 0; t < FRAMES; t++) for (let m = 0; m < MELS; m++) {
-    const [r, g, b] = color(spec[t * MELS + m]), o = ((MELS - 1 - m) * FRAMES + t) * 4;
-    img.data[o] = r; img.data[o + 1] = g; img.data[o + 2] = b; img.data[o + 3] = 255;
-  }
-  if (reduceMotion) { ctx.putImageData(img, 0, 0); return Promise.resolve(); }
-  return new Promise(res => {
-    const t0 = performance.now(), dur = 1100;
-    const step = now => {
-      const n = Math.min(FRAMES, Math.round(FRAMES * (now - t0) / dur));
-      ctx.fillStyle = "#0b1230"; ctx.fillRect(0, 0, FRAMES, MELS);
-      ctx.putImageData(img, 0, 0, 0, 0, n, MELS);
-      if (n < FRAMES) raf = requestAnimationFrame(step); else res();
-    };
-    raf = requestAnimationFrame(step);
-  });
-}
-
-/* ---------- prediction ---------- */
-async function predict(spec, wavBlob) {
-  const r = await fetch(PREDICT_URL, { method: "POST", headers: { "Content-Type": "audio/wav" }, body: wavBlob });
-  if (!r.ok) throw new Error("The model server returned " + r.status + ".");
-  return (await r.json()).probs;
-}
-
-function show(probs) {
-  const rows = CLASSES.map(([k, name]) => ({ name, p: probs[k] ?? 0 })).sort((a, b) => b.p - a.p);
-  $("topName").textContent = rows[0].name;
-  $("topPct").textContent = Math.round(rows[0].p * 100) + "% confidence";
-  $("rows").innerHTML = rows.map((r, i) =>
-    `<li class="${i ? "" : "first"}"><span>${r.name}</span><span class="bar"><i data-w="${(r.p * 100).toFixed(1)}"></i></span><span class="pct">${Math.round(r.p * 100)}%</span></li>`).join("");
-  $("result").classList.add("on");
-  requestAnimationFrame(() => requestAnimationFrame(() => document.querySelectorAll(".bar i").forEach(i => i.style.width = i.dataset.w + "%")));
-}
-
-/* ---------- audio in ---------- */
-function toWav(samples) {
-  const b = new DataView(new ArrayBuffer(44 + samples.length * 2)), w = (o, s) => [...s].forEach((c, i) => b.setUint8(o + i, c.charCodeAt(0)));
-  w(0, "RIFF"); b.setUint32(4, 36 + samples.length * 2, true); w(8, "WAVEfmt "); b.setUint32(16, 16, true); b.setUint16(20, 1, true);
-  b.setUint16(22, 1, true); b.setUint32(24, SR, true); b.setUint32(28, SR * 2, true); b.setUint16(32, 2, true); b.setUint16(34, 16, true);
-  w(36, "data"); b.setUint32(40, samples.length * 2, true);
-  samples.forEach((s, i) => b.setInt16(44 + i * 2, Math.max(-1, Math.min(1, s)) * 32767, true));
-  return new Blob([b], { type: "audio/wav" });
-}
-function setStatus(msg, bad) { const s = $("status"); s.textContent = msg; s.classList.toggle("error", !!bad); }
-
-async function analyse(samples) {
-  setStatus("Analysing…");
-  const spec = melSpec(samples);
-  await draw(spec);
-  try { show(await predict(spec, toWav(samples.subarray(0, HOP * (FRAMES - 1) + NFFT)))); setStatus(""); }
-  catch (e) { setStatus(e.message, true); }
-}
-async function decode(arrayBuf) {
-  const ac = new AudioContext({ sampleRate: SR });
-  try { return (await ac.decodeAudioData(arrayBuf)).getChannelData(0); } finally { ac.close(); }
-}
-
-$("file").addEventListener("change", async e => {
-  const f = e.target.files[0]; if (!f) return;
-  try { await analyse(await decode(await f.arrayBuffer())); }
-  catch { setStatus("That file could not be read. Try a WAV, MP3 or M4A clip.", true); }
-  e.target.value = "";
-});
-
-let mr, chunks, stopTimer;
-$("rec").addEventListener("click", async () => {
-  const btn = $("rec");
-  if (mr && mr.state === "recording") { mr.stop(); return; }
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mr = new MediaRecorder(stream); chunks = [];
-    mr.ondataavailable = e => chunks.push(e.data);
-    mr.onstop = async () => {
-      clearTimeout(stopTimer); stream.getTracks().forEach(t => t.stop());
-      btn.classList.remove("recording"); $("recLabel").textContent = "Record again";
-      try { await analyse(await decode(await new Blob(chunks).arrayBuffer())); }
-      catch { setStatus("The recording could not be processed. Try uploading a file instead.", true); }
-    };
-    mr.start(); btn.classList.add("recording"); $("recLabel").textContent = "Stop"; setStatus("Recording… up to 6 seconds");
-    stopTimer = setTimeout(() => mr.state === "recording" && mr.stop(), 6000);
-  } catch {
-    setStatus("Microphone access was blocked. Allow it in the address bar, or upload a clip.", true);
-  }
-});
-</script>
+  <noscript>เปิด JavaScript เพื่ออัดเสียงและเล่นภารกิจฝึกพูด</noscript>
 </body>
 </html>
